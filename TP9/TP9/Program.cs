@@ -12,6 +12,8 @@ namespace TP9
     {
         static void Main(string[] args)
         {
+            //Ejercicio 1
+            /*
             //Escribimos archivo de configuracion de destino
             string ruta = @"C:\Taller1\tpn9-FNMariani\TP9\TP9\bin\Debug\destino\";
             Helpers.SoporteParaConfiguracion.CrearArchivoDeConfiguracion(ruta);
@@ -34,6 +36,43 @@ namespace TP9
                     File.Move(archivo, nuevoDestino);
                 }
             }
+            */
+
+            
+
+            //Ejercicio 2
+            string frase, fraseAMorse, fraseATexto;
+            string directorio = System.Environment.CurrentDirectory;
+
+            Console.WriteLine("Ingrese una frase a convertir: ");
+            frase =  Console.ReadLine();
+
+            //Escritura de archivo
+            fraseAMorse = Helpers.ConversorDeMorse.TextoAMorse(frase.ToUpper());
+            //Console.WriteLine(fraseAMorse);
+            string archivo = @"morse\tToMorse." + DateTime.Now.ToString("dd-MM-yyyy-HH.mm.ss") + ".txt";
+            if (!File.Exists(archivo))
+            {
+                var file = File.Create(archivo);
+                file.Close();
+            }
+            File.WriteAllText(archivo, fraseAMorse);
+
+
+            //Lectura de archivo
+            string cadenaMorse = File.ReadAllText(archivo);
+            fraseATexto = Helpers.ConversorDeMorse.MorseATexto(cadenaMorse);
+            Console.WriteLine("\nCodigo morse leido de archivo: " + cadenaMorse);
+            Console.WriteLine("Texto convertido del codigo morse: " + fraseATexto);
+
+            //Guardamos archivo convertido a texto
+            archivo = @"morse\mToTexto." + DateTime.Now.ToString("dd-MM-yyyy-HH.mm.ss") + ".txt";
+            if (!File.Exists(archivo))
+            {
+                var file = File.Create(archivo);
+                file.Close();
+            }
+            File.WriteAllText(archivo, fraseATexto);
 
             Console.ReadKey();
         }
